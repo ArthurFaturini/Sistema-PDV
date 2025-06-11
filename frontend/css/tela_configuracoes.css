@@ -1,0 +1,199 @@
+
+section#configuracoes-painel{
+    display: flex;
+    flex-flow: column wrap;
+    
+    gap: 20px;
+}
+
+section#configuracoes-tela-mesas{
+    display: none;
+    grid-template: repeat(3, 125px) / repeat(2, 1fr);
+    grid-auto-rows: 125px;
+    justify-items: center;
+    align-items: center;
+
+    height: 90vh;
+    width: 500px;
+
+    overflow-y: scroll;
+}
+
+section#configuracoes-tela-mesas > div.mesa{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+
+section#configuracoes-tela-produtos{
+    display: none;
+    grid-template: repeat(2, auto) / 11vw 65vw;
+    grid-auto-rows: auto;
+}
+
+section#nav-bar-mesa-configuracoes{
+    display: grid;
+    grid-template: repeat(3, 150px) / 1fr;
+    grid-row: 1 / -1;
+    grid-column: 1 / 2;
+    justify-items: center;
+    text-align: center;
+    width: 150px;
+
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: var(--cor1);
+}
+
+section#nav-bar-mesa-configuracoes h2{
+    position: relative;
+    text-shadow: 1px 1px 5px black;
+}
+section#nav-bar-mesa-configuracoes h2::after{
+    content: " ";
+    width: 0%;
+    height: 3px;
+    background-color: var(--cor5);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    transition: 0.2s ease-in-out;
+}
+
+.tipo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    width: 150px;
+    height: 100px;
+}
+
+.tipo h2{
+    width: 110px;
+
+    cursor: pointer;
+}
+
+.icone-lixeira:hover{
+    border-radius: 50%;
+    padding: 5px;
+    background-color: var(--cor3);
+    fill: red;
+}
+
+section#nav-bar-mesa-configuracoes h2:hover::after{
+    width: 100%;
+}
+
+section#configuracoes-tela-taxa{
+    display: none;
+    grid-template: repeat(4, 50px) / 15vw 15vw;
+    grid-auto-rows: 50px;
+
+    align-items: center;
+}
+
+section#configuracoes-tela-taxa h1{
+    font-size: 3em;
+}
+
+#taxa{
+    grid-row: 2 / 3;
+    grid-column: 1 / 3;
+    height: 50px;
+    
+    font-size: 2em;
+}
+
+section#configuracoes-tela-taxa #labels-taxas{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    grid-row: 3 / 4;
+    grid-column: 1 / -1;
+}
+
+section#configuracoes-tela-taxa #labels-taxas label{
+    background-color: var(--cor2);
+
+    border-radius: 15px;
+    border: 1px solid black;
+
+    padding: 10px;
+
+    cursor: pointer;
+}
+
+#acrescimo:checked + label[for="acrescimo"],
+#decrescimo:checked + label[for="decrescimo"] {
+  background-color: var(--cor3) !important;
+  color: var(--cor5);
+}
+
+section#configuracoes-tela-impressao{
+    display: none;
+    grid-template: 50px 50px 50px / 1fr 1fr;
+    grid-auto-flow: column;
+    gap: 10px;
+}
+
+section#configuracoes-tela-impressao > h1{
+    font-size: 2.1em;
+    grid-column: 1 / -1;
+}
+
+section#configuracoes-tela-impressao > select{
+    border-radius: 15px;
+}
+
+
+section#configuracoes-tela-impressao > #botao-salvar-impressao{
+    grid-row: -2 / -1;
+    grid-column: 1 / -1;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.5); /* escurece o fundo */
+    backdrop-filter: blur(4px); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    z-index: 999; /* fica acima de tudo */
+}
+
+.modal > form{
+    display: grid;
+    grid-template: 40px 30px 40px 30px 50px / 1fr 1fr;
+    grid-auto-flow: column;
+    align-items: end;
+
+    gap: 10px;
+
+    background-color: var(--cor2);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.modal label{
+    font-size: 2em;
+    text-shadow: 1px 1px 5px black;
+}
+
+.modal .texto{
+    font-size: 1.2em;
+}

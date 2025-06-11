@@ -1,0 +1,6 @@
+
+div#painel-bem-vindo{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}

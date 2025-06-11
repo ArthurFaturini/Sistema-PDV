@@ -1,0 +1,220 @@
+
+section#tela-mesa{
+    display: grid;
+    grid-template: 80px repeat(3, 1fr) / repeat(3, 1fr);
+
+    border: 1px solid black;
+    height: 99.7vh;
+    width: 99.8vw;
+}
+
+section#nav-bar-mesa{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+
+    display: grid;
+    grid-template: 1fr / repeat(3, 300px);
+    grid-auto-columns: 300px;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-items: center;
+
+    overflow-x: scroll;
+
+    border: 1px solid black;
+}
+
+section#nav-bar-mesa h2{
+    position: relative;
+    text-shadow: 1px 1px 5px black;
+
+    cursor: pointer;
+}
+section#nav-bar-mesa h2::after{
+    content: " ";
+    width: 0%;
+    height: 3px;
+    background-color: var(--cor5);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    transition: 0.2s ease-in-out;
+}
+
+section#nav-bar-mesa h2:hover::after{
+    width: 100%;
+}
+
+
+section#comanda-mesa{
+    border: 1px solid black;
+    grid-row-start: 1;
+    grid-row-end: -1;
+    grid-column-start: 3;
+    grid-column-end: 4;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+section#produtos{
+    border: 1px solid black;
+    grid-row-start: 2;
+    grid-row-end: -1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+
+    
+    overflow-y: scroll;
+}
+
+section#produtos section{
+    width: 100%;
+    height: 100%;
+}
+
+section.abas-produtos{
+    display: none;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;    
+}
+
+section#comanda-mesa > div#titulo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: auto;
+
+    border: none;
+    border-radius: 0;
+}
+
+div#modalImprimir #formImprimir{
+    grid-template: 50px 50px / 1fr 1fr;
+}
+
+div#modalImprimir #botaoFechamento{
+    grid-row: 1 / 2;
+}
+div#modalImprimir #botaoCozinha{
+    grid-row: 1 / 2;
+    grid-column: 2 / -1;
+}
+div#modalImprimir #botaoFechar{
+    grid-column: 1 / -1;
+}
+
+div#anotacao{
+    display: grid;
+    grid-template: repeat(9, 40px)/ auto;
+    grid-auto-rows: auto;
+    grid-auto-flow: row;
+    
+
+    border: 1px solid black;
+
+    width: 90%;
+    height: 50%;
+    overflow-y: scroll;
+}
+
+div#anotacao div{
+    display: grid;
+    grid-template: 40px/ auto 200px 100px 30px 30px;
+    grid-auto-flow: row;
+    align-items: center;
+    justify-items: center;
+
+    width: 99%;
+    height: 40px;
+
+    border: none;
+    border-radius: 0;
+
+}
+
+div#anotacao p{
+    margin: 5px;
+    text-align: center;
+}
+
+div#anotacao .aumentar-quantidade:hover, div#anotacao .diminuir-quantidade:hover{
+    background-color: var(--cor3);
+    border-radius: 50%;
+}
+
+
+div#funcoes{
+    display: grid;
+    grid-template: 1fr 50px / 1fr 2fr;
+    width: 90%;
+
+    gap: 5px;
+
+}
+
+div#funcoes > div{
+    display: inline;
+    align-content: center;
+    justify-content: flex-end;
+    border: 0;
+
+    gap: 5px;
+
+    height: auto;
+
+}
+
+div#funcoes > p{
+   align-self: center;
+   color: var(--cor5);
+   text-align: center;
+
+   text-shadow: 1px 1px 5px black;
+}
+
+div#funcoes #configuracoes-taxa{
+    padding: 5px;
+}
+
+div#funcoes #configuracoes-taxa:hover{
+    padding: 5px;
+    border-radius: 50%;
+    background-color: var(--cor3);
+    fill: var(--cor5);
+}
+
+div#funcoes > div input{
+    display: none;
+}
+
+div#funcoes > div input:checked + label{
+    color: var(--cor5);
+    background-color: var(--cor3);
+}
+
+div#funcoes > div label{
+    text-shadow: 1px 1px 5px black;
+    padding: 10px;
+    background-color: var(--cor6);
+
+    border-radius: 15px;
+    border: 1px solid black;
+
+    width: 200px;
+
+    cursor: pointer;
+}
+
+div#funcoes > div label:hover{
+    background-color: var(--cor3);
+
+}

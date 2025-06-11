@@ -1,0 +1,32 @@
+{
+    "Pizzas Salgadas": {
+        "Rainha Margarida de Saboia": 48.0,
+        "Búfala ao Pesto": 50.0,
+        "Pizza da Mariane": 58.0,
+        "Margherita": 55.0,
+        "Pizza da Maitê(Mozarela)": 50.0,
+        "Calabresa": 58.0,
+        "Calabresa Cream": 65.0,
+        "4 Formaggi": 65.0,
+        "Frango": 58.0,
+        "Portuguesa": 65.0,
+        "Bacon": 60.0,
+        "Bacon C/ Gorgonzola": 65.0,
+        "Pepperoni": 70.0,
+        "Alho Torrado": 52.0
+    },
+    "Pizzas Doces": {
+        "Chocolate": 35.0,
+        "Chocolate C/ Morango": 35.0
+    },
+    "Bebidas": {
+        "Coca": 6.0,
+        "Coca Zero": 6.0,
+        "Guaraná": 6.0,
+        "Fanta": 6,
+        "Del Valle": 6.0,
+        "Cerveja": 12.0,
+        "Água": 4.0,
+        "Água C/ Gás": 5.0
+    }
+}

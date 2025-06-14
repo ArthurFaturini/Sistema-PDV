@@ -7,16 +7,32 @@ import win32print
 
 data = time.strftime('%d/%m/%Y %H:%M')
 
-# print(f'1x Frango e Bacon C/ Gorgonzola        R$..??.??')
-# print(f'{quantidade}x {produto:<36}R${preco:7.2f}')
 
 def lista_impressoras():
+    '''
+    Retorna a lista de impressoras conectadas ao computador.
+
+    Args:
+        None
+    Returns:
+        impressoras (list): Lista de impressoras
+    '''
     impressoras = [printer[2] for printer in win32print.EnumPrinters(2)]
 
     return impressoras
 
 
-def imprimir_fechamento(num_mesa=int, taxa: bool = False):
+def imprimir_fechamento(num_mesa: int, taxa: bool = False):
+    '''
+    Imprimi a comanda de fechamento.
+
+    Args:
+        num_mesa (int): Número da mesa(Padrão: 1 a 6).
+        taxa (bool): False para não aplicar a taxa, True para aplicar a taxa.
+    Returns:
+        None
+    '''
+    
     p = Win32Raw(f"{nome_impressora}")
 
     comanda = mesas[num_mesa - 1].get_comanda()
@@ -66,7 +82,15 @@ def imprimir_fechamento(num_mesa=int, taxa: bool = False):
     p.close()
 
 
-def imprimir_cozinha(num_mesa=int):
+def imprimir_cozinha(num_mesa: int):
+    '''
+    Imprimi a comanda da cozinha.
+
+    Args:
+        num_mesa (int): Número da mesa(Padrão: 1 a 6).
+    Returns:
+        None
+    '''
     p = Win32Raw(f"{nome_impressora}")
 
     comanda = mesas[num_mesa - 1].get_comanda()

@@ -5,8 +5,6 @@ import win32print
 
 #QUANTIDADE DE HÍFENS PARA PREENCHER O PAPEL TODO: 48
 
-data = time.strftime('%d/%m/%Y %H:%M')
-
 
 def lista_impressoras():
     '''
@@ -32,7 +30,8 @@ def imprimir_fechamento(num_mesa: int, taxa: bool = False):
     Returns:
         None
     '''
-    
+    data = time.strftime('%d/%m/%Y %H:%M')
+
     p = Win32Raw(f"{nome_impressora}")
 
     comanda = mesas[num_mesa - 1].get_comanda()

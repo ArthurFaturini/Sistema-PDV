@@ -1,7 +1,7 @@
 /**
  * Renderiza a tela da mesa, permitindo anotar os produtos na comanda.
  *  
- * @param {number} num_mesa - Número da mesa(1 a 6).
+ * @param {number} num_mesa - Número da mesa(Padrão: 1 a 6).
  * @returns {void}
  *  
  */
@@ -165,6 +165,13 @@ async function renderizarTelaMesa(num_mesa){
     renderizarBotaoImprimir(num_mesa);
 };
 
+/**
+ * Renderiza o botão para abrir o modal de impressão.
+ * 
+ * @param {number} num_mesa - Número da mesa(Padrão: 1 a 6).
+ * @returns {void}
+ * 
+ */
 async function renderizarBotaoImprimir(num_mesa){
     const divTitulo = document.getElementById('titulo');
     const inputTaxa = document.getElementById('taxa');
@@ -189,6 +196,12 @@ async function renderizarBotaoImprimir(num_mesa){
     divTitulo.appendChild(buttonImprimir);
 }
 
+/**
+ * Renderiza o modal para escolher as opções de impressão.
+ * 
+ * @param {number} num_mesa - Número da mesa(Padrão: 1 a 6).
+ * @returns {void}
+ */
 function renderizarTelaOpcaoImprimir(num_mesa){
     const main = document.getElementById('main');
 
@@ -244,10 +257,20 @@ function renderizarTelaOpcaoImprimir(num_mesa){
     main.appendChild(div);
 }
 
+/**
+ * Abre o modal de impressão.
+ * 
+ * @returns {void}
+ */
 function abrirTelaOpcaoImprimir(){
     document.getElementById('modalImprimir').style.display = 'grid';
 }
 
+/**
+ * Fecha o modal de impressão.
+ * 
+ * @returns {void}
+ */
 function fecharTelaOpcaoImprimir(){
     document.getElementById('modalImprimir').style.display = 'none';
 }
@@ -255,13 +278,13 @@ function fecharTelaOpcaoImprimir(){
 /**
  * Adiciona o produto na comanda exibida na interface.
  * 
- * @param {number} quantidade - Quantidade do produto.
+ * @param {number} quantidade - Opcional. Quantidade do produto.
  * @param {string} nome - Nome do produto.
  * @param {number} preco - Preço do produto.
  * @returns {void}
  * 
  */
-async function adicionarProdutoNaComanda(quantidade= 1, nome, preco){
+async function adicionarProdutoNaComanda(quantidade = 1, nome, preco){
     const anotacao = document.getElementById('anotacao');
     
     const nomeSeparado = nome.split(' e ');
@@ -327,6 +350,7 @@ async function adicionarProdutoNaComanda(quantidade= 1, nome, preco){
 /**
  * Obtém do backend os produtos da comanda da mesa atual e os renderiza na interface.         
  * 
+ * @param {number} num_mesa - Número da mesa(Padrão: 1 a 6).
  * @returns {void}
  * 
  */
@@ -342,6 +366,7 @@ async function lerComanda(num_mesa){
  * Salva os produtos anotados na interface da comanda, enviando-os para o backend.
  * Remove a comanda anterior da mesa e registra os itens atuais, um por um.
  * 
+ * @param {number} num_mesa - Número da mesa(Padrão: 1 a 6).
  * @returns {void}
  * 
  */
@@ -459,8 +484,9 @@ function aplicarTaxa(){
  * Aplica 10% de acréscimo se o parâmetro `dezPorCento` seja `true`.
  * 
  * @param {boolean} [dezPorCento=false] - Indica se deve aplicar acréscimo de 10%.
- * @returns {void}
- * 
+ * @returns {number|void} Retorna o `somaTotal` dos produtos (antes de qualquer taxa) se `taxa` for `false`.
+ * Se `taxa` for `true`, a função atualiza o DOM e não retorna um valor explícito (void).
+ *
  */ 
 async function calcularTotal(taxa=false){
     const listaPreco = document.querySelectorAll('.preco');

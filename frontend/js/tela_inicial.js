@@ -1,5 +1,5 @@
 /**
- *  Renderiza a tela inicial, permitindo escolher em qual mesa anotar a comanda.
+ *  Renderiza a tela inicial, permitindo escolher em qual mesa anotar a comanda. Além de poder acessar as configurações.
  *  
  * @returns {void}
  */

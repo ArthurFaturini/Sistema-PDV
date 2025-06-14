@@ -1,10 +1,13 @@
+/**
+ * Verifica se a API está pronta.
+ */
 window.addEventListener('pywebviewready', () => {
     console.log('PyWebView pronto');
     renderizarTelaInicial();
 });
 
 /**
- *  Volta para tela inicial.
+ * Volta para tela inicial.
  * 
  * @returns {void}
  * 
@@ -63,9 +66,9 @@ function adicionarEventListener(){
 }
 
 /**
- * Carrega a aba de cada tipo de produto(Pizzas Salgadas, Pizzas Doces e Bebidas) com base no clique.
+ * Carrega a aba de cada tipo de produto(Padrão: Pizzas Salgadas, Pizzas Doces e Bebidas) com base no clique.
  * 
- * @param {string} tipo - Tipo do produto: "Pizzas", "Doces" ou "Bebidas".
+ * @param {string} tipo - Tipo do produto(Padrão): "Pizzas", "Doces" ou "Bebidas".
  * @returns {void}
  * 
  */ 

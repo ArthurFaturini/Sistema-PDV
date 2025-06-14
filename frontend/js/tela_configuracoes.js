@@ -1,3 +1,8 @@
+/**
+ * Renderiza a tela inicial de configurações.
+ * 
+ * @returns {void}
+ */
 function renderizarTelaConfiguracoes(){
     document.getElementById('main').style.display = "grid";
     document.getElementById('main').innerHTML = ` 
@@ -6,12 +11,17 @@ function renderizarTelaConfiguracoes(){
         <button onclick="renderizarTelaConfiguracoesMesa()">Mesas</button>
         <button onclick="renderizarTelaConfiguracoesProdutos()">Produtos</button>
         <button onclick="renderizarTelaConfiguracoesTaxas()">Taxas</button>
-        <button onclick="renderizarTelaImpressao()">Impressão</button>
+        <button onclick="renderizarTelaConfiguracoesImpressao()">Impressão</button>
         <button onclick="voltar()">Voltar</button>
     </section>`;
 }
 
 // Configurações de Mesas
+/**
+ * Renderiza a tela de configurações das mesas.
+ * 
+ * @returns {void}
+ */
 async function renderizarTelaConfiguracoesMesa(){
     renderizarTelaConfiguracoes();
 
@@ -101,12 +111,23 @@ async function renderizarTelaConfiguracoesMesa(){
     document.getElementById('main').appendChild(configuracoesTelaMesas);
 }
 
+/**
+ * Cria uma mesa nova.
+ * 
+ * @returns {void}
+ */
 function criarMesaNova(){
     window.pywebview.api.criar_mesa_nova();
 
     renderizarTelaConfiguracoesMesa();
 }
 
+/**
+ * Exclui uma mesa específica.
+ * 
+ * @param {number} num_mesa - Número da mesa(Padrão: 1 a 6).
+ * @returns {void}
+ */
 function excluirMesa(num_mesa){
     const confirmacao = window.confirm(`Tem certeza que quer excluir a mesa ${num_mesa}`);
 
@@ -118,6 +139,11 @@ function excluirMesa(num_mesa){
 }
 
 // Configurações de Produtos
+/**
+ * Renderiza a tela de configurações dos produtos.
+ * 
+ * @returns {void}
+ */
 async function renderizarTelaConfiguracoesProdutos(){
     renderizarTelaConfiguracoes();
 
@@ -237,100 +263,104 @@ async function renderizarTelaConfiguracoesProdutos(){
 
         const quantidadeDeProduto = await window.pywebview.api.get_quantidade_produtos(tipos[t]);
             
-            for(let q = 0; q < quantidadeDeProduto; q++){
-                const nomeProduto = await window.pywebview.api.get_nome_produto(tipos[t], q);
-                const precoProduto = await window.pywebview.api.get_preco_produto(nomeProduto, tipos[t]);
-                
-                const div = document.createElement('div');
-                div.classList.add('produto');
-                div.setAttribute('data-tipo', tipos[t]);
-                div.setAttribute('data-preco', precoProduto.toFixed(2))
-
-                const icone = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                icone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-                icone.setAttribute("width", "48");
-                icone.setAttribute("height", "48");
-                icone.setAttribute("fill", "white");
-                icone.setAttribute("viewBox", "0 0 16 16");
-                icone.setAttribute("class", "bi bi-trash");
-                icone.style.display = 'none';
-
-                icone.innerHTML = `
-                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                `;
-                div.appendChild(icone);
-
-                
-                const h2 = document.createElement('h2');
-                h2.innerText = nomeProduto;
-                div.appendChild(h2);
-                
-                const p = document.createElement('p');
-                p.innerText = `R$ ${precoProduto.toFixed(2)}`;
-                div.appendChild(p)
-                
-                div.addEventListener('mouseover', () => {
-                    h2.style.display = 'none';
-                    p.style.display = 'none';
-                    icone.style.display = 'block';
-                });
-                
-                div.addEventListener('mouseout', () => {
-                    h2.style.display = 'block';
-                    p.style.display = 'block';
-                    icone.style.display = 'none';
-                });
-
-                div.addEventListener('click', () => {
-                    excluirProduto(nomeProduto, tipos[t]);
-                });
-
-                aba.appendChild(div);
-            }
-
+        for(let q = 0; q < quantidadeDeProduto; q++){
+            const nomeProduto = await window.pywebview.api.get_nome_produto(tipos[t], q);
+            const precoProduto = await window.pywebview.api.get_preco_produto(nomeProduto, tipos[t]);
+            
             const div = document.createElement('div');
             div.classList.add('produto');
-
-            const h2 = document.createElement('h2');
-            h2.innerText = 'Adicionar Produto';
+            div.setAttribute('data-tipo', tipos[t]);
+            div.setAttribute('data-preco', precoProduto.toFixed(2))
 
             const icone = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             icone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
             icone.setAttribute("width", "48");
             icone.setAttribute("height", "48");
-            icone.setAttribute("fill", "var(--cor5)");
+            icone.setAttribute("fill", "white");
             icone.setAttribute("viewBox", "0 0 16 16");
-            icone.setAttribute("class", "bi bi-plus-circle");
+            icone.setAttribute("class", "bi bi-trash");
             icone.style.display = 'none';
 
             icone.innerHTML = `
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
             `;
-
-            div.appendChild(h2);
             div.appendChild(icone);
 
+            
+            const h2 = document.createElement('h2');
+            h2.innerText = nomeProduto;
+            div.appendChild(h2);
+            
+            const p = document.createElement('p');
+            p.innerText = `R$ ${precoProduto.toFixed(2)}`;
+            div.appendChild(p)
+            
             div.addEventListener('mouseover', () => {
                 h2.style.display = 'none';
+                p.style.display = 'none';
                 icone.style.display = 'block';
             });
-
+            
             div.addEventListener('mouseout', () => {
                 h2.style.display = 'block';
+                p.style.display = 'block';
                 icone.style.display = 'none';
             });
 
-            div.addEventListener('click', () => {abrirTelaAdicaoProduto(tipos[t])});
+            div.addEventListener('click', () => {
+                excluirProduto(nomeProduto, tipos[t]);
+            });
 
             aba.appendChild(div);
-
-            configuracoesTelaProdutos.appendChild(aba);
         }
 
+        const div = document.createElement('div');
+        div.classList.add('produto');
+
+        const h2 = document.createElement('h2');
+        h2.innerText = 'Adicionar Produto';
+
+        const icone = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        icone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        icone.setAttribute("width", "48");
+        icone.setAttribute("height", "48");
+        icone.setAttribute("fill", "var(--cor5)");
+        icone.setAttribute("viewBox", "0 0 16 16");
+        icone.setAttribute("class", "bi bi-plus-circle");
+        icone.style.display = 'none';
+
+        icone.innerHTML = `
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+        `;
+
+        div.appendChild(h2);
+        div.appendChild(icone);
+
+        div.addEventListener('mouseover', () => {
+            h2.style.display = 'none';
+            icone.style.display = 'block';
+        });
+
+        div.addEventListener('mouseout', () => {
+            h2.style.display = 'block';
+            icone.style.display = 'none';
+        });
+
+        div.addEventListener('click', () => {abrirTelaAdicaoProduto(tipos[t])});
+
+        aba.appendChild(div);
+
+        configuracoesTelaProdutos.appendChild(aba);
+    }
 };
 
+/**
+ * Renderiza o modal de adição de tipo de produto.
+ * 
+ * @returns {void}
+ */
 function renderizarTelaAdicaoTipoProduto(){
     const main = document.getElementById('main');
 
@@ -383,6 +413,11 @@ function renderizarTelaAdicaoTipoProduto(){
     main.appendChild(div);
 }
 
+/**
+ * Renderiza o modal de adição de produto.
+ * 
+ * @returns {void}
+ */
 function renderizarTelaAdicaoProduto(){
     const main = document.getElementById('main');
 
@@ -451,28 +486,52 @@ function renderizarTelaAdicaoProduto(){
     main.appendChild(div);
 }
       
-
+/**
+ * Abre o modal de adição de tipo de produto.
+ * 
+ * @returns {void}
+ */
 function abrirTelaAdicaoTipoProduto(){
     document.getElementById('modalTipo').style.display = 'grid';
 }
 
+/**
+ * Fecha o modal de adição de tipo de produto.
+ * 
+ * @returns {void}
+ */
 function fecharTelaAdicaoTipoProduto(){
     document.getElementById('modalTipo').style.display = 'none';
     renderizarTelaConfiguracoesProdutos();
 
 }
 
+/**
+ * Abre o modal de adição de produto.
+ * 
+ * @returns {void}
+ */
 function abrirTelaAdicaoProduto(tipoProduto){
     document.getElementById('modalProduto').style.display = 'grid';
     document.getElementById('modalProduto').setAttribute('data-tipo', tipoProduto);
 }
 
+/**
+ * Fecha o modal de adição de produto.
+ * 
+ * @returns {void}
+ */
 function fecharTelaAdicaoProduto(){
     document.getElementById('modalProduto').style.display = 'none';
     renderizarTelaConfiguracoesProdutos();
 }
 
-
+/**
+ * Exclui um produto específico.
+ * 
+ * @param {string} nomeProduto - Nome do produto
+ * @param {string} tipoProduto - Tipo do produto
+ */
 function excluirProduto(nomeProduto, tipoProduto){
     const confirmacao = window.confirm(`Tem certeza que quer excluir o produto ${nomeProduto}`);
 
@@ -483,11 +542,15 @@ function excluirProduto(nomeProduto, tipoProduto){
     renderizarTelaConfiguracoesProdutos();
 }
 
+/**
+ * Adiciona um novo produto. Caso ele não exista. Se existir, não é adicionado.
+ * 
+ * @returns {void}
+ */
 async function adicionarProduto(){
     let valueNome = document.getElementById('nomeProduto').value;
     let valuePreco = parseFloat(document.getElementById('preco').value);
     const tipoProduto = document.getElementById('modalProduto').dataset.tipo;
-
 
     const adicionandoProduto = await window.pywebview.api.adicionar_produto(valueNome, tipoProduto, valuePreco);
 
@@ -499,10 +562,15 @@ async function adicionarProduto(){
         console.log('Esse produto NÃO existe');
     }
 
-
     renderizarTelaConfiguracoesProdutos();
 }
 
+/**
+ * Exclui um tipo de produto específico.
+ * 
+ * @param {string} tipoProduto - Tipo de produto
+ * @returns {void}
+ */
 async function excluirTipoProduto(tipoProduto){
     const confimarcao = window.confirm(`Você tem certeza que quer excluir o tipo: ${tipoProduto}`);
     
@@ -514,6 +582,11 @@ async function excluirTipoProduto(tipoProduto){
     renderizarTelaConfiguracoesProdutos();
 }
 
+/**
+ * Adiciona um novo tipo de produto. Caso ele não exista. Se existir, não é adicionado.
+ * 
+ * @returns {void}
+ */
 async function adicionarTipoProduto() {
     const valueTipo = document.getElementById('nomeTipo').value;
     
@@ -528,6 +601,12 @@ async function adicionarTipoProduto() {
 }
 
 // Configurações de Taxas
+/**
+ * Renderiza a tela de configurações de taxas.
+ * 
+ * @param {number} num_mesa - Opcional. Número da mesa(Padrão: 1 a 6). 
+ * @returns {void}
+ */
 async function renderizarTelaConfiguracoesTaxas(num_mesa){
     renderizarTelaConfiguracoes();
 
@@ -610,12 +689,24 @@ async function renderizarTelaConfiguracoesTaxas(num_mesa){
     configuracoesTelaTaxa.appendChild(buttonSalvar);
 }
 
+/**
+ * Salva a nova configuração de taxa desejada.
+ * 
+ * @param {number} taxa - Valor de taxa. Ex: 10,00
+ * @param {string} tipoTaxa - Acréscimo ou Decréscimo
+ * @returns {void}
+ */
 function salvarTaxa(taxa, tipoTaxa){
     window.pywebview.api.salvar_taxa_configuracoes(taxa, tipoTaxa);
 }
 
 // Configurações de Impressão
-async function renderizarTelaImpressao(){
+/**
+ * Renderiza a tela de configurações de Impressão.
+ * 
+ * @returns {void}
+ */
+async function renderizarTelaConfiguracoesImpressao(){
     renderizarTelaConfiguracoes();
 
     const configuracoesTelaImpressao = document.createElement('section')

@@ -4,3 +4,15 @@ div#painel-bem-vindo{
     flex-flow: column;
     justify-content: center;
 }
+
+div.mesa #titulo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+div.mesa #titulo > svg{
+    border: 1px solid black;
+    border-radius: 50%;
+}

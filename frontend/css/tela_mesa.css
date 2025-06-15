@@ -97,6 +97,16 @@ section#comanda-mesa > div#titulo{
     border-radius: 0;
 }
 
+div#titulo #limpar-mesa{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+div#titulo #limpar-mesa:hover > svg{
+    fill: var(--cor5);
+}
+
 div#modalImprimir #formImprimir{
     grid-template: 50px 50px / 1fr 1fr;
 }

@@ -46,8 +46,32 @@ async function renderizarTelaMesa(num_mesa){
     buttonVoltar.innerText = "Voltar";
     buttonVoltar.setAttribute('onclick', "voltar()");
 
+    const buttonLimparMesa = document.createElement('button');
+    buttonLimparMesa.setAttribute('id', 'limpar-mesa');
+    buttonLimparMesa.title = "Limpar mesa";
+
+    const iconeLixeira = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    iconeLixeira.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    iconeLixeira.setAttribute("width", "32");
+    iconeLixeira.setAttribute("height", "32");
+    iconeLixeira.setAttribute("fill", "white");
+    iconeLixeira.setAttribute("viewBox", "0 0 16 16");
+    iconeLixeira.setAttribute("class", "bi bi-trash");
+    iconeLixeira.innerHTML = `
+        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+    `;
+
+    buttonLimparMesa.appendChild(iconeLixeira);
+    buttonLimparMesa.addEventListener('click', async () => {
+        await window.pywebview.api.limpar_comanda_da_mesa(num_mesa);
+        lerComanda(num_mesa);
+        renderizarTelaMesa(num_mesa);
+    })
+
     divTitulo.appendChild(h2);
     divTitulo.appendChild(buttonVoltar);
+    divTitulo.appendChild(buttonLimparMesa);
 
     const divAnotacao = document.createElement('div');
     divAnotacao.setAttribute('id', 'anotacao');
@@ -187,6 +211,7 @@ async function renderizarBotaoImprimir(num_mesa){
     const buttonImprimir = document.createElement('button');
     buttonImprimir.innerText = "Imprimir Comanda";
     buttonImprimir.addEventListener('click', async () =>{
+        salvarComanda(num_mesa);
         const comanda = await window.pywebview.api.get_comanda_mesa(num_mesa);
         if(comanda.length){
             abrirTelaOpcaoImprimir();

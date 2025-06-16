@@ -67,6 +67,7 @@ async function renderizarTelaConfiguracoesMesa(){
 
         mesa.addEventListener('click', () => {
             excluirMesa(i + 1);
+            renderizaNotificacao("MesaExcluida");
         });
 
         configuracoesTelaMesas.appendChild(mesa);
@@ -104,7 +105,10 @@ async function renderizarTelaConfiguracoesMesa(){
         icone.style.display = 'none';
     });
 
-    mesa.addEventListener('click', criarMesaNova);
+    mesa.addEventListener('click', () => {
+        criarMesaNova();
+        renderizaNotificacao("MesaNova");
+    });
 
     configuracoesTelaMesas.appendChild(mesa);
 
@@ -207,6 +211,9 @@ async function renderizarTelaConfiguracoesProdutos(){
 
         icone.addEventListener('click', () => {
             excluirTipoProduto(tipos[t]);
+            setTimeout(() =>{
+                renderizaNotificacao("TipoProdutoExcluido");
+            }, 50);
         });
         
         div.appendChild(icone);
@@ -310,6 +317,7 @@ async function renderizarTelaConfiguracoesProdutos(){
 
             div.addEventListener('click', () => {
                 excluirProduto(nomeProduto, tipos[t]);
+                renderizaNotificacao("ProdutoExcluido");
             });
 
             aba.appendChild(div);
@@ -403,6 +411,9 @@ function renderizarTelaAdicaoTipoProduto(){
             adicionarTipoProduto();
             fecharTelaAdicaoTipoProduto();
             renderizarTelaConfiguracoesProdutos();
+            setTimeout(() => {
+                renderizaNotificacao("TipoProdutoAdicionado");
+            }, 50);
         }
     })
 
@@ -476,6 +487,9 @@ function renderizarTelaAdicaoProduto(){
             adicionarProduto();
             fecharTelaAdicaoProduto();
             renderizarTelaConfiguracoesProdutos();
+            setTimeout(() =>{
+                renderizaNotificacao("ProdutoAdicionado");
+            }, 50);
         }
     })
 
@@ -682,10 +696,11 @@ async function renderizarTelaConfiguracoesTaxas(num_mesa){
         }
         if(num_mesa > 0){
             renderizarTelaMesa(num_mesa);
-        }else{
+        }if(num_mesa == 0){
             renderizarTelaViagem(num_mesa);
         }
 
+        renderizaNotificacao("Taxa");
     })
     buttonSalvar.innerText = 'Salvar';
 

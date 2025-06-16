@@ -67,6 +67,7 @@ async function renderizarTelaMesa(num_mesa){
         await window.pywebview.api.limpar_comanda_da_mesa(num_mesa);
         lerComanda(num_mesa);
         renderizarTelaMesa(num_mesa);
+        renderizaNotificacao("LimparMesa");
     })
 
     divTitulo.appendChild(h2);
@@ -131,7 +132,10 @@ async function renderizarTelaMesa(num_mesa){
 
     const buttonSalvar = document.createElement('button');
     buttonSalvar.innerText = "Salvar Comanda"
-    buttonSalvar.setAttribute('onclick', `salvarComanda(${num_mesa})`);
+    buttonSalvar.addEventListener('click', () => {
+        salvarComanda(num_mesa);
+        renderizaNotificacao("SalvarComanda");
+    });
 
     divFuncoes.appendChild(pTotal);
     divFuncoes.appendChild(div);

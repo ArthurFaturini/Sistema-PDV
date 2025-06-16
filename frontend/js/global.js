@@ -84,3 +84,39 @@ async function carregarAbaProdutos(tipo){
         }
     }
 }
+
+function renderizaNotificacao(tipo){
+    const divNotificacao = document.createElement('div');
+    divNotificacao.setAttribute('id', 'notificacao');
+
+
+    if(tipo == "SalvarComanda"){
+        divNotificacao.innerText = "Comanda salva com sucesso!";
+    }else if(tipo == "Taxa"){
+        divNotificacao.innerText = "Configurações de taxa alteradas com sucesso!";
+    }else if(tipo == "LimparMesa"){
+        divNotificacao.innerText = "Mesa limpa com sucesso!";
+    }else if(tipo == "MesaNova"){
+        divNotificacao.innerText = "Mesa criada com sucesso!";
+    }else if(tipo == "MesaExcluida"){
+        divNotificacao.innerText = "Mesa excluída com sucesso!";
+    }else if(tipo == "ProdutoAdicionado"){
+        divNotificacao.innerText = "Produto adicionado com sucesso!";
+    }else if(tipo == "ProdutoExcluido"){
+        divNotificacao.innerText = "Produto excluído com sucesso!";
+    }else if(tipo == "TipoProdutoAdicionado"){
+        divNotificacao.innerText = "Tipo de Produto adicionado com sucesso!";
+    }else if(tipo == "TipoProdutoExcluido"){
+        divNotificacao.innerText = "Tipo de Produto excluído com sucesso!";
+    }
+    else{
+        divNotificacao.innerText = "Alteração feita com sucesso!";
+    }
+
+    const main = document.getElementById('main');
+    main.appendChild(divNotificacao);
+
+    setTimeout(() =>{
+        main.removeChild(divNotificacao);
+    }, 4 * 1000);
+}

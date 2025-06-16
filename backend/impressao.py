@@ -44,7 +44,10 @@ def imprimir_fechamento(num_mesa: int, taxa: bool = False):
     p.set(font='a', bold=True, align='center')
     p.text("Forneria Faturini\n")
     p.text("================================================\n")
-    p.text(f"Mesa {num_mesa}\n")
+    if num_mesa == 0: 
+        p.text('P/ VIAGEM!\n')
+    else:
+        p.text(f'Mesa {num_mesa}\n')
     p.text(f"{data}\n")
     p.text("================================================\n")
     p.set(font='a', bold=False, align='left')
@@ -100,7 +103,12 @@ def imprimir_cozinha(num_mesa: int):
     p.set(font='a', bold=True, align='center', double_height=True)
     p.text("================================================\n")
     p.text('COZINHA\n')
-    p.text(f'Mesa {num_mesa}\n')
+    # A última mesa sempre é a da viagem, ela é criada e excluída durante o processo.
+    # Apenas nesse caso terei que usar 0 para "reconhecer" a última mesa. Por padrão/para o código é -1, pois é o último elemento da lista mesas. 
+    if num_mesa == 0: 
+        p.text('P/ VIAGEM!\n')
+    else:
+        p.text(f'Mesa {num_mesa}\n')
     p.text("================================================\n")
     p.set(font='a', bold=False, align='left')
     p.text("ITENS:\n")
@@ -108,5 +116,6 @@ def imprimir_cozinha(num_mesa: int):
         p.text(f'{linha["quantidade"]}x {linha["produto"]:<45}\n')        
     p.text('\n') #Pulando Linha
     p.text('------------------------------------------------\n')
+    p.set(font='a', bold=False, align='left', double_height=False, normal_textsize=True)
     p.cut()
     p.close()

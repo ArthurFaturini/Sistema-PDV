@@ -182,11 +182,12 @@ input::-webkit-inner-spin-button {
 
 
 *::-webkit-scrollbar {
-  width: 10px; /* Largura da barra de rolagem */
+  width: 8px;
+  height: 8px;
 }
 
 /* Estilo do botão de rolagem */
 *::-webkit-scrollbar-thumb {
-  background-color: var(--cor3); /* Cor do botão */
-  border-radius: 15px; /* Bordas arredondadas */
+  background-color: var(--cor3);
+  border-radius: 15px;
 }

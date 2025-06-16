@@ -5,6 +5,35 @@ div#painel-bem-vindo{
     justify-content: center;
 }
 
+div.viagem{
+    display: grid;
+    grid-template: 1fr 1fr / 1fr;       
+    align-items: end;
+
+    grid-column: 1 / -1;
+
+    text-align: center;
+    width: 75%;
+    height: 130px;
+
+    border: 1px solid black;
+    border-radius: 17px;
+    box-shadow: 1px 1px 5px #00000080;
+
+    background-color: var(--cor1);
+    color: white;
+    text-shadow: 1px 1px 5px black;
+
+    transition: 0.3s ease-in-out;
+
+    cursor: pointer;
+}
+
+div.viagem:hover{
+    background-color: var(--cor0);
+    transform: scale(1.16);
+}
+
 div.mesa #titulo{
     display: flex;
     flex-direction: row;

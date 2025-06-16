@@ -609,6 +609,10 @@ async function adicionarTipoProduto() {
  */
 async function renderizarTelaConfiguracoesTaxas(num_mesa){
     renderizarTelaConfiguracoes();
+    if(typeof num_mesa == 'number'){
+        const configuracoesPainel = document.getElementById("configuracoes-painel");
+        configuracoesPainel.style.visibility = 'hidden';
+    }
 
     const configuracoesTelaTaxa = document.createElement('section');
     configuracoesTelaTaxa.setAttribute('id', 'configuracoes-tela-taxa');
@@ -676,8 +680,10 @@ async function renderizarTelaConfiguracoesTaxas(num_mesa){
         }else{
             salvarTaxa(inputTaxa.value, inputDecrescimo.value)
         }
-        if(num_mesa){
+        if(num_mesa > 0){
             renderizarTelaMesa(num_mesa);
+        }else{
+            renderizarTelaViagem(num_mesa);
         }
 
     })
@@ -728,7 +734,6 @@ async function renderizarTelaConfiguracoesImpressao(){
     const nome_impressora = await window.pywebview.api.get_impressora()
     if(nome_impressora.length > 0){
         optionPadrao.innerText = nome_impressora;
-        console.log(nome_impressora);
     }else{
         optionPadrao.innerText = 'Selecione uma impressora';
     }

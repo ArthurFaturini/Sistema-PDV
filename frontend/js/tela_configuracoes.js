@@ -12,6 +12,7 @@ function renderizarTelaConfiguracoes(){
         <button onclick="renderizarTelaConfiguracoesProdutos()">Produtos</button>
         <button onclick="renderizarTelaConfiguracoesTaxas()">Taxas</button>
         <button onclick="renderizarTelaConfiguracoesImpressao()">Impressão</button>
+        <button onclick="renderizarTelaConfiguracoesCores()">Cores</button>
         <button onclick="voltar()">Voltar</button>
     </section>`;
 }
@@ -81,7 +82,7 @@ async function renderizarTelaConfiguracoesMesa(){
     icone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     icone.setAttribute("width", "48");
     icone.setAttribute("height", "48");
-    icone.setAttribute("fill", "var(--cor5)");
+    icone.setAttribute("fill", "var(--cor4)");
     icone.setAttribute("viewBox", "0 0 16 16");
     icone.setAttribute("class", "bi bi-plus-circle");
     icone.style.display = 'none';
@@ -106,7 +107,7 @@ async function renderizarTelaConfiguracoesMesa(){
 
     mesa.addEventListener('click', () => {
         criarMesaNova();
-        renderizaNotificacao("MesaNova");
+        renderizarNotificacao("MesaNova");
     });
 
     configuracoesTelaMesas.appendChild(mesa);
@@ -137,7 +138,7 @@ function excluirMesa(num_mesa){
     if(confirmacao){
         window.pywebview.api.excluir_mesa(num_mesa);
         setTimeout(() => {
-            renderizaNotificacao("MesaExcluida");
+            renderizarNotificacao("MesaExcluida");
         }, 50);
     }
 
@@ -181,7 +182,7 @@ async function renderizarTelaConfiguracoesProdutos(){
             for(let div of document.querySelectorAll('.tipo')){
                 div.firstChild.style.color = 'white';
             }
-            h2.style.color = 'var(--cor5)';
+            h2.style.color = 'var(--cor4)';
         })
         
         div.appendChild(h2);
@@ -231,7 +232,7 @@ async function renderizarTelaConfiguracoesProdutos(){
     icone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     icone.setAttribute("width", "48");
     icone.setAttribute("height", "48");
-    icone.setAttribute("fill", "var(--cor5)");
+    icone.setAttribute("fill", "var(--cor4)");
     icone.setAttribute("viewBox", "0 0 16 16");
     icone.setAttribute("class", "bi bi-plus-circle");
     icone.style.display = 'none';
@@ -331,7 +332,7 @@ async function renderizarTelaConfiguracoesProdutos(){
         icone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
         icone.setAttribute("width", "48");
         icone.setAttribute("height", "48");
-        icone.setAttribute("fill", "var(--cor5)");
+        icone.setAttribute("fill", "var(--cor4)");
         icone.setAttribute("viewBox", "0 0 16 16");
         icone.setAttribute("class", "bi bi-plus-circle");
         icone.style.display = 'none';
@@ -544,7 +545,7 @@ function excluirProduto(nomeProduto, tipoProduto){
     if(confirmacao){
         window.pywebview.api.excluir_produto(nomeProduto, tipoProduto);
         setTimeout(() => {
-            renderizaNotificacao("ProdutoExcluido");
+            renderizarNotificacao("ProdutoExcluido");
         }, 50);
     }
 
@@ -566,12 +567,12 @@ async function adicionarProduto(){
     if(!adicionandoProduto){
         console.log('Esse produto já existe');
         setTimeout(() =>{
-            renderizaNotificacao("ProdutoExiste");
+            renderizarNotificacao("ProdutoExiste");
         }, 50);
     }else{
         console.log('Esse produto NÃO existe');
         setTimeout(() => {
-            renderizaNotificacao("ProdutoAdicionado");
+            renderizarNotificacao("ProdutoAdicionado");
         }, 50);
     }
     renderizarTelaConfiguracoesProdutos();
@@ -590,7 +591,7 @@ async function excluirTipoProduto(tipoProduto){
     if(confimarcao){
         await window.pywebview.api.excluir_tipo_produto(tipoProduto);
         setTimeout(() =>{
-            renderizaNotificacao("TipoProdutoExcluido");
+            renderizarNotificacao("TipoProdutoExcluido");
         }, 50);
     }
     
@@ -610,12 +611,12 @@ async function adicionarTipoProduto() {
     if(!adicionandoTipo){
         console.log('Esse tipo já existe');
         setTimeout(() =>{
-            renderizaNotificacao("TipoProdutoExiste");
+            renderizarNotificacao("TipoProdutoExiste");
         }, 50);
     }else{
         console.log('Esse tipo NÃO existe');
         setTimeout(() =>{
-            renderizaNotificacao("TipoProdutoAdicionado");
+            renderizarNotificacao("TipoProdutoAdicionado");
         }, 50);
     }
 
@@ -707,7 +708,7 @@ async function renderizarTelaConfiguracoesTaxas(num_mesa){
             renderizarTelaViagem(num_mesa);
         }
 
-        renderizaNotificacao("Taxa");
+        renderizarNotificacao("Taxa");
     })
     buttonSalvar.innerText = 'Salvar';
 
@@ -781,4 +782,57 @@ async function renderizarTelaConfiguracoesImpressao(){
     configuracoesTelaImpressao.appendChild(h1Impressora);
     configuracoesTelaImpressao.appendChild(selectImpressora);
     configuracoesTelaImpressao.appendChild(buttonSalvar);
+}
+
+// Configurações de Cores
+async function renderizarTelaConfiguracoesCores(){
+    renderizarTelaConfiguracoes();
+    
+    const configuracoesTelaCores = document.createElement('section')
+    configuracoesTelaCores.setAttribute('id', 'configuracoes-tela-cores');
+    configuracoesTelaCores.style.display = 'grid';
+
+    document.getElementById('main').appendChild(configuracoesTelaCores);
+
+    const cores = await window.pywebview.api.get_paleta_cores();
+
+    for(let i = 0; i < cores.length; i++){
+        const divPaleta = document.createElement('div');
+        divPaleta.setAttribute('class', "paleta");
+        divPaleta.setAttribute('data-posicao', i);
+
+        const divCores = document.createElement('div');
+        divCores.setAttribute('class', 'cores');
+
+        for(let a = 0; a < 6; a++){
+            const divCor = document.createElement('div');
+            divCor.style.backgroundColor = `${cores[i][a]}`
+            if(a == 0){
+                divCor.style.borderRadius = '15px 0px 0px 0px';
+            }
+            if(a == 5){
+                divCor.style.borderRadius = '0px 15px 0px 0px';
+            }
+
+            divCores.appendChild(divCor);
+        }
+
+        const button = document.createElement('button');
+        button.innerText = "Escolher Paleta";
+        button.addEventListener('click', () =>{
+            const root = document.documentElement;
+
+            for(let i = 0; i < 6; i++){
+                root.style.setProperty(`--cor${i}`, `${cores[divPaleta.dataset.posicao][i]}`);
+            }
+
+            renderizarTelaConfiguracoesCores();
+
+        })
+
+        divPaleta.appendChild(divCores);
+        divPaleta.appendChild(button);
+
+        configuracoesTelaCores.appendChild(divPaleta);
+    };
 }

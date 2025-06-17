@@ -55,7 +55,7 @@ section#nav-bar-mesa-configuracoes h2::after{
     content: " ";
     width: 0%;
     height: 3px;
-    background-color: var(--cor5);
+    background-color: var(--cor4);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -133,7 +133,7 @@ section#configuracoes-tela-taxa #labels-taxas label{
 #acrescimo:checked + label[for="acrescimo"],
 #decrescimo:checked + label[for="decrescimo"] {
   background-color: var(--cor3) !important;
-  color: var(--cor5);
+  color: var(--cor4);
 }
 
 section#configuracoes-tela-impressao{
@@ -196,4 +196,40 @@ section#configuracoes-tela-impressao > #botao-salvar-impressao{
 
 .modal .texto{
     font-size: 1.2em;
+}
+
+
+/* Cores */
+
+section#configuracoes-tela-cores{
+    display: grid;
+    grid-template: 1fr / 1fr 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+div.cores{
+    display: grid;
+    grid-template: 1fr / repeat(6, 1fr);
+}
+
+div.paleta{
+    display: grid;
+    grid-template: 100px 60px / 1fr;
+
+    border: 1px solid black;
+    border-radius: 17px;
+
+    width: 125px;
+    height: 160px;
+
+    transition: ease-in-out 0.3s;
+}
+
+div.paleta button{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+div.paleta:hover{
+    transform: scale(1.2);
 }

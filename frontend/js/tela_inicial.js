@@ -51,7 +51,7 @@ async function renderizarTelaInicial(){
 
         const comandaMesa = await window.pywebview.api.get_comanda_mesa(i);
         if(comandaMesa.length == 0){
-            iconeOcupado.setAttribute("fill", "var(--cor5)");
+            iconeOcupado.setAttribute("fill", "var(--cor4)");
         }else{
             iconeOcupado.setAttribute("fill", "black");
         }

@@ -20,7 +20,7 @@ async function renderizarTelaViagem(num_mesa){
             for(let div of document.getElementById('nav-bar-mesa').children){
                 div.style.color = 'white';
             }
-            h2.style.color = 'var(--cor5)';
+            h2.style.color = 'var(--cor4)';
         });
 
         navBarMesa.appendChild(h2);

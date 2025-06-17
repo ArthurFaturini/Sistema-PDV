@@ -27,7 +27,7 @@ async function renderizarTelaMesa(num_mesa){
             for(let div of document.getElementById('nav-bar-mesa').children){
                 div.style.color = 'white';
             }
-            h2.style.color = 'var(--cor5)';
+            h2.style.color = 'var(--cor4)';
         });
 
         navBarMesa.appendChild(h2);
@@ -67,7 +67,7 @@ async function renderizarTelaMesa(num_mesa){
         await window.pywebview.api.limpar_comanda_da_mesa(num_mesa);
         lerComanda(num_mesa);
         renderizarTelaMesa(num_mesa);
-        renderizaNotificacao("LimparMesa");
+        renderizarNotificacao("LimparMesa");
     })
 
     divTitulo.appendChild(h2);
@@ -134,7 +134,7 @@ async function renderizarTelaMesa(num_mesa){
     buttonSalvar.innerText = "Salvar Comanda"
     buttonSalvar.addEventListener('click', () => {
         salvarComanda(num_mesa);
-        renderizaNotificacao("SalvarComanda");
+        renderizarNotificacao("SalvarComanda");
     });
 
     divFuncoes.appendChild(pTotal);
@@ -339,7 +339,7 @@ async function adicionarProdutoNaComanda(quantidade = 1, nome, preco){
     iconeAdiciona.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     iconeAdiciona.setAttribute("width", "32");
     iconeAdiciona.setAttribute("height", "32");
-    iconeAdiciona.setAttribute("fill", "var(--cor5)");
+    iconeAdiciona.setAttribute("fill", "var(--cor4)");
     iconeAdiciona.setAttribute("viewBox", "0 0 16 16");
     iconeAdiciona.setAttribute("class", "bi bi-plus");
     iconeAdiciona.classList.add('aumentar-quantidade');

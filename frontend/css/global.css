@@ -5,9 +5,8 @@
     --cor1: #902C1E;
     --cor2: #6E3B32;
     --cor3: #332624;
-    --cor4: #24AD73;
-    --cor5: #2BCD7F;
-    --cor6: #561A12;
+    --cor4: #2BCD7F;
+    --cor5: #561A12;
 }
 
 *{
@@ -52,7 +51,7 @@ div#notificacao{
     animation: animacao-notificacao 3s ease;
 
     font-size: 1.5em;
-    color: var(--cor5);
+    color: var(--cor4);
     text-shadow: 1px 1px 5px black;
 }
 
@@ -145,7 +144,7 @@ div.produto{
 
 div.produto > p{
     font-weight: bold;
-    color: var(--cor5);
+    color: var(--cor4);
 }
 
 div.produto:hover{
@@ -166,7 +165,7 @@ button{
     grid-row: 2 / 3;
     grid-column: 1 / -1;
     
-    background-color: var(--cor6);
+    background-color: var(--cor5);
     color: white;
     border: 1px solid black;
     border-radius: 15px;
@@ -195,7 +194,7 @@ button{
 
 button:hover, .botao:hover{
     background-color: var(--cor3);
-    color: var(--cor5);
+    color: var(--cor4);
     box-shadow: 0px 0px 5px #00000080;
 }
 

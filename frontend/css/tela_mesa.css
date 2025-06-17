@@ -36,7 +36,7 @@ section#nav-bar-mesa h2::after{
     content: " ";
     width: 0%;
     height: 3px;
-    background-color: var(--cor5);
+    background-color: var(--cor4);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -104,7 +104,7 @@ div#titulo #limpar-mesa{
 }
 
 div#titulo #limpar-mesa:hover > svg{
-    fill: var(--cor5);
+    fill: var(--cor4);
 }
 
 div#modalImprimir #formImprimir{
@@ -185,10 +185,10 @@ div#funcoes > div{
 
 div#funcoes > p{
    align-self: center;
-   color: var(--cor5);
+   color: var(--cor4);
    text-align: center;
 
-   text-shadow: 1px 1px 5px black;
+   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 div#funcoes #configuracoes-taxa{
@@ -199,7 +199,7 @@ div#funcoes #configuracoes-taxa:hover{
     padding: 5px;
     border-radius: 50%;
     background-color: var(--cor3);
-    fill: var(--cor5);
+    fill: var(--cor4);
 }
 
 div#funcoes > div input{
@@ -207,14 +207,14 @@ div#funcoes > div input{
 }
 
 div#funcoes > div input:checked + label{
-    color: var(--cor5);
+    color: var(--cor4);
     background-color: var(--cor3);
 }
 
 div#funcoes > div label{
     text-shadow: 1px 1px 5px black;
     padding: 10px;
-    background-color: var(--cor6);
+    background-color: var(--cor5);
 
     border-radius: 15px;
     border: 1px solid black;

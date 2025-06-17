@@ -1,5 +1,5 @@
 import json
-from backend.config import mesas, taxa_configuracoes, nome_impressora
+from backend.config import mesas, taxa_configuracoes, nome_impressora, cores
 from backend.mesa import Mesa
 from backend.impressao import imprimir_fechamento, imprimir_cozinha, lista_impressoras
 
@@ -360,3 +360,7 @@ class API:
             nome_impressora (string): Nome da impressora
         '''
         return nome_impressora
+
+    def get_paleta_cores(self):
+
+        return cores

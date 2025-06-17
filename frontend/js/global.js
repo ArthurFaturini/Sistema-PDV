@@ -85,7 +85,7 @@ async function carregarAbaProdutos(tipo){
     }
 }
 
-function renderizaNotificacao(tipo){
+function renderizarNotificacao(tipo){
     const divNotificacao = document.createElement('div');
     divNotificacao.setAttribute('id', 'notificacao');
 

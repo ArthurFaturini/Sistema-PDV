@@ -4,6 +4,10 @@ section#configuracoes-painel{
     flex-flow: column wrap;
     
     gap: 20px;
+
+    width: 168px;
+    
+    text-align: center;
 }
 
 section#configuracoes-tela-mesas{
@@ -27,20 +31,46 @@ section#configuracoes-tela-mesas > div.mesa{
     height: 100px;
 }
 
+/* Configurações Produtos */
 section#configuracoes-tela-produtos{
     display: none;
     grid-template: repeat(2, auto) / 11vw 65vw;
     grid-auto-rows: auto;
 }
 
+section#configuracoes-tela-dois-sabores{
+    display: none;
+    grid-template: repeat(3, auto) / auto;
+    
+    gap: 20px;
+
+    font-size: 1.5em;
+}
+
+section#configuracoes-tela-dois-sabores section{
+    display: grid;
+    grid-template: repeat(4, auto) / 50px auto;
+    grid-auto-rows: auto;
+
+    gap: 20px;
+
+    font-size: 1.5em;
+}
+section#configuracoes-tela-dois-sabores button{
+    grid-row: -2 / -1;
+}
+
 section#nav-bar-mesa-configuracoes{
     display: grid;
-    grid-template: repeat(3, 150px) / 1fr;
+    grid-template: repeat(3, 100px) / 1fr;
     grid-row: 1 / -1;
     grid-column: 1 / 2;
     justify-items: center;
     text-align: center;
-    width: 150px;
+    grid-auto-rows: 100px;
+
+    width: 160px;
+    height: 90vh;
 
     border: 1px solid black;
     border-radius: 15px;

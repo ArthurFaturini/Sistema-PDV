@@ -4,7 +4,7 @@ mesas = [Mesa(), Mesa(), Mesa(), Mesa(), Mesa(), Mesa()]
 
 taxa_configuracoes = {"Acréscimo": 10.00}
 
-nome_impressora = "EPSON TM-T20X Receipt"
+nome_impressora = "EPSON TM-T20X Receipt" #Padrão
 
 cores = [
     ["#AD3824",

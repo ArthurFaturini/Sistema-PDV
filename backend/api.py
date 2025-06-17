@@ -1,5 +1,5 @@
 import json
-from backend.config import mesas, taxa_configuracoes, nome_impressora, cores
+from backend.config import mesas, taxa_configuracoes, cores
 from backend.mesa import Mesa
 from backend.impressao import imprimir_fechamento, imprimir_cozinha, lista_impressoras
 
@@ -345,8 +345,13 @@ class API:
         Returns:
             None
         '''
-        global nome_impressora
-        nome_impressora = f"{impressora_selecionada}"
+        with open("data/config.json", 'r', encoding='utf-8') as arquivo:
+            dados = json.load(arquivo)
+
+        dados["nome_impressora"] = f"{impressora_selecionada}"
+
+        with open('data/config.json', 'w', encoding='utf-8') as f:
+            json.dump(dados, f, indent=4, ensure_ascii=False)
 
 
     def get_impressora(self):
@@ -359,8 +364,27 @@ class API:
         Returns:
             nome_impressora (string): Nome da impressora
         '''
-        return nome_impressora
+        with open("data/config.json", 'r', encoding='utf-8') as arquivo:
+            dados = json.load(arquivo)
+
+        return dados["nome_impressora"]
+
 
     def get_paleta_cores(self):
 
         return cores
+    
+    def set_tipos_meio_meio(self, tipos):
+        with open("data/config.json", 'r', encoding='utf-8') as arquivo:
+            dados = json.load(arquivo)
+
+        dados["tipos_meio_meio"] = tipos
+
+        with open('data/config.json', 'w', encoding='utf-8') as f:
+            json.dump(dados, f, indent=4, ensure_ascii=False)
+
+    def get_tipos_meio_meio(self):
+        with open("data/config.json", 'r', encoding='utf-8') as arquivo:
+            dados = json.load(arquivo)
+
+        return dados["tipos_meio_meio"]

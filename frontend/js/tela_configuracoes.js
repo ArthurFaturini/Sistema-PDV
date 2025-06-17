@@ -154,6 +154,18 @@ function excluirMesa(num_mesa){
 async function renderizarTelaConfiguracoesProdutos(){
     renderizarTelaConfiguracoes();
 
+    const configuracoesPainel = document.getElementById('configuracoes-painel');
+    configuracoesPainel.innerHTML = `
+        <h1>Produtos</h1>
+        <button onclick="renderizarTelaConfiguracoesItens()">Produtos</button>
+        <button onclick="renderizarTelaConfiguracoesDoisSabores()">Dois Sabores</button>
+        <button onclick="renderizarTelaConfiguracoes()">Voltar</button>
+    `;
+};
+
+async function renderizarTelaConfiguracoesItens(){
+    renderizarTelaConfiguracoesProdutos();
+
     const configuracoesTelaProdutos = document.createElement('section');
     configuracoesTelaProdutos.setAttribute('id', 'configuracoes-tela-produtos');
     configuracoesTelaProdutos.style.display = 'grid';
@@ -361,7 +373,63 @@ async function renderizarTelaConfiguracoesProdutos(){
 
         configuracoesTelaProdutos.appendChild(aba);
     }
-};
+}
+
+async function renderizarTelaConfiguracoesDoisSabores(){
+    renderizarTelaConfiguracoesProdutos();
+
+    const configuracoesTelaDoisSabores = document.createElement('section');
+    configuracoesTelaDoisSabores.setAttribute('id', 'configuracoes-tela-dois-sabores');
+    configuracoesTelaDoisSabores.innerHTML = "";
+    configuracoesTelaDoisSabores.style.display = 'grid';
+
+    const tiposProdutos = await window.pywebview.api.get_tipos_produtos();
+
+    const h1 = document.createElement('h1');
+    h1.innerText = "Tipos Meio a Meio:";
+
+    configuracoesTelaDoisSabores.appendChild(h1);
+
+    const gradeOpcoes = document.createElement('section');
+
+    const tiposMeioMeio = await window.pywebview.api.get_tipos_meio_meio();
+
+    for(let i = 0; i < tiposProdutos.length; i++){
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.setAttribute('id', tiposProdutos[i]);
+        if(tiposMeioMeio.includes(tiposProdutos[i])){
+            input.checked = true;
+        }
+        
+        const label = document.createElement('label');
+        label.innerText = tiposProdutos[i];
+        label.htmlFor = tiposProdutos[i];
+
+        gradeOpcoes.appendChild(input);
+        gradeOpcoes.appendChild(label);
+    }
+
+    const button = document.createElement('button');
+    button.innerText = "Salvar";
+    button.addEventListener('click', () =>{
+        const listaTipos = [];
+        for(let element of gradeOpcoes.getElementsByTagName('input')){
+            if(element.checked){
+                listaTipos.push(element.id);
+            }
+        };
+
+        window.pywebview.api.set_tipos_meio_meio(listaTipos);
+
+        renderizarNotificacao();
+    });
+
+    configuracoesTelaDoisSabores.appendChild(gradeOpcoes);
+    configuracoesTelaDoisSabores.appendChild(button);
+
+    document.getElementById('main').appendChild(configuracoesTelaDoisSabores);
+}
 
 /**
  * Renderiza o modal de adição de tipo de produto.

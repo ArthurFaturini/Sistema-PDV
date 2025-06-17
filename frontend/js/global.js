@@ -28,11 +28,13 @@ let listaPreco = [];
 function adicionarEventListener(){
     const produtos = document.querySelectorAll('.produto');
     for(const elemento of produtos) {
-        elemento.addEventListener('click', function() {
+        elemento.addEventListener('click', async () => {
             let nomeProduto = elemento.firstChild.innerText.trim();
             let preco = parseFloat(elemento.dataset.preco);
 
-            if(elemento.dataset.tipo == 'Pizzas Salgadas'){
+            const tiposMeioMeio = await window.pywebview.api.get_tipos_meio_meio();
+
+            if(tiposMeioMeio.includes(elemento.dataset.tipo)){
                 elemento.classList.add('selecionado')
 
                 listaNome.push(nomeProduto);

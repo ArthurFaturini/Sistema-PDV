@@ -67,7 +67,6 @@ async function renderizarTelaConfiguracoesMesa(){
 
         mesa.addEventListener('click', () => {
             excluirMesa(i + 1);
-            renderizaNotificacao("MesaExcluida");
         });
 
         configuracoesTelaMesas.appendChild(mesa);
@@ -137,6 +136,9 @@ function excluirMesa(num_mesa){
 
     if(confirmacao){
         window.pywebview.api.excluir_mesa(num_mesa);
+        setTimeout(() => {
+            renderizaNotificacao("MesaExcluida");
+        }, 50);
     }
 
     renderizarTelaConfiguracoesMesa();
@@ -211,9 +213,6 @@ async function renderizarTelaConfiguracoesProdutos(){
 
         icone.addEventListener('click', () => {
             excluirTipoProduto(tipos[t]);
-            setTimeout(() =>{
-                renderizaNotificacao("TipoProdutoExcluido");
-            }, 50);
         });
         
         div.appendChild(icone);
@@ -317,7 +316,6 @@ async function renderizarTelaConfiguracoesProdutos(){
 
             div.addEventListener('click', () => {
                 excluirProduto(nomeProduto, tipos[t]);
-                renderizaNotificacao("ProdutoExcluido");
             });
 
             aba.appendChild(div);
@@ -411,9 +409,6 @@ function renderizarTelaAdicaoTipoProduto(){
             adicionarTipoProduto();
             fecharTelaAdicaoTipoProduto();
             renderizarTelaConfiguracoesProdutos();
-            setTimeout(() => {
-                renderizaNotificacao("TipoProdutoAdicionado");
-            }, 50);
         }
     })
 
@@ -487,9 +482,6 @@ function renderizarTelaAdicaoProduto(){
             adicionarProduto();
             fecharTelaAdicaoProduto();
             renderizarTelaConfiguracoesProdutos();
-            setTimeout(() =>{
-                renderizaNotificacao("ProdutoAdicionado");
-            }, 50);
         }
     })
 
@@ -551,6 +543,9 @@ function excluirProduto(nomeProduto, tipoProduto){
 
     if(confirmacao){
         window.pywebview.api.excluir_produto(nomeProduto, tipoProduto);
+        setTimeout(() => {
+            renderizaNotificacao("ProdutoExcluido");
+        }, 50);
     }
 
     renderizarTelaConfiguracoesProdutos();
@@ -568,14 +563,17 @@ async function adicionarProduto(){
 
     const adicionandoProduto = await window.pywebview.api.adicionar_produto(valueNome, tipoProduto, valuePreco);
 
-    console.log(adicionandoProduto);
-
     if(!adicionandoProduto){
         console.log('Esse produto já existe');
+        setTimeout(() =>{
+            renderizaNotificacao("ProdutoExiste");
+        }, 50);
     }else{
         console.log('Esse produto NÃO existe');
+        setTimeout(() => {
+            renderizaNotificacao("ProdutoAdicionado");
+        }, 50);
     }
-
     renderizarTelaConfiguracoesProdutos();
 }
 
@@ -591,6 +589,9 @@ async function excluirTipoProduto(tipoProduto){
     
     if(confimarcao){
         await window.pywebview.api.excluir_tipo_produto(tipoProduto);
+        setTimeout(() =>{
+            renderizaNotificacao("TipoProdutoExcluido");
+        }, 50);
     }
     
     renderizarTelaConfiguracoesProdutos();
@@ -608,8 +609,14 @@ async function adicionarTipoProduto() {
 
     if(!adicionandoTipo){
         console.log('Esse tipo já existe');
+        setTimeout(() =>{
+            renderizaNotificacao("TipoProdutoExiste");
+        }, 50);
     }else{
         console.log('Esse tipo NÃO existe');
+        setTimeout(() =>{
+            renderizaNotificacao("TipoProdutoAdicionado");
+        }, 50);
     }
 
 }

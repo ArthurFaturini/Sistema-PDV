@@ -104,10 +104,14 @@ function renderizaNotificacao(tipo){
         divNotificacao.innerText = "Produto adicionado com sucesso!";
     }else if(tipo == "ProdutoExcluido"){
         divNotificacao.innerText = "Produto excluído com sucesso!";
+    }else if(tipo == "ProdutoExiste"){
+        divNotificacao.innerText = "Esse produto já existe!";
     }else if(tipo == "TipoProdutoAdicionado"){
         divNotificacao.innerText = "Tipo de Produto adicionado com sucesso!";
     }else if(tipo == "TipoProdutoExcluido"){
         divNotificacao.innerText = "Tipo de Produto excluído com sucesso!";
+    }else if(tipo == "TipoProdutoExiste"){
+        divNotificacao.innerText = "Esse tipo de produto já existe!";
     }
     else{
         divNotificacao.innerText = "Alteração feita com sucesso!";

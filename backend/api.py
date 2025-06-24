@@ -353,7 +353,6 @@ class API:
         with open('data/config.json', 'w', encoding='utf-8') as f:
             json.dump(dados, f, indent=4, ensure_ascii=False)
 
-
     def get_impressora(self):
         '''
         Retorna o nome da impressora que está salvo por padrão
@@ -374,6 +373,7 @@ class API:
 
         return cores
     
+
     def set_tipos_meio_meio(self, tipos):
         with open("data/config.json", 'r', encoding='utf-8') as arquivo:
             dados = json.load(arquivo)
@@ -388,3 +388,9 @@ class API:
             dados = json.load(arquivo)
 
         return dados["tipos_meio_meio"]
+
+    def get_observacoes_mesa(self, num_mesa: int):
+        return mesas[num_mesa - 1].get_observacoes()
+
+    def set_observacoes_mesa(self, num_mesa: int, observacao: str):
+        mesas[num_mesa - 1].set_observacoes(observacao)

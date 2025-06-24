@@ -65,7 +65,7 @@ async function renderizarTelaMesa(num_mesa){
     buttonLimparMesa.appendChild(iconeLixeira);
     buttonLimparMesa.addEventListener('click', async () => {
         await window.pywebview.api.limpar_comanda_da_mesa(num_mesa);
-        lerComanda(num_mesa);
+        await window.pywebview.api.set_observacoes_mesa(num_mesa, '');
         renderizarTelaMesa(num_mesa);
         renderizarNotificacao("LimparMesa");
     })
@@ -239,10 +239,8 @@ function renderizarTelaOpcaoImprimir(num_mesa){
     div.classList.add('modal');
     div.setAttribute('id', 'modalImprimir');
 
-    const form = document.createElement('form');
-    form.setAttribute('onsubmit', `renderizarTelaMesa(${num_mesa})`);
+    const form = document.createElement('div');
     form.setAttribute('id', 'formImprimir');
-
 
     const button = document.createElement('button');
     button.innerText = 'Fechar';
@@ -277,9 +275,20 @@ function renderizarTelaOpcaoImprimir(num_mesa){
         fecharTelaOpcaoImprimir();
     })
 
-    form.appendChild(button);
+    const buttonObservacoes = document.createElement('button');
+    buttonObservacoes.setAttribute('id', 'botaoObservacoes');
+    buttonObservacoes.classList.add('botao');
+    buttonObservacoes.innerText = "Observações";
+    buttonObservacoes.addEventListener('click', () => {
+        renderizarTelaObservacoes(num_mesa);
+        setTimeout(() => {
+            abrirTelaObservacoes();
+        }, 10);
+    });
+
     form.appendChild(buttonFechamento);
     form.appendChild(buttonCozinha);
+    form.appendChild(buttonObservacoes);
     
     div.appendChild(form);
 
@@ -302,6 +311,74 @@ function abrirTelaOpcaoImprimir(){
  */
 function fecharTelaOpcaoImprimir(){
     document.getElementById('modalImprimir').style.display = 'none';
+}
+
+async function renderizarTelaObservacoes(num_mesa){
+    const main = document.getElementById('main');
+
+    if(document.getElementById('modalObservacoes')){
+        main.removeChild(document.getElementById('modalObservacoes'));
+    };
+
+    const div = document.createElement('div');
+    div.style.display = 'none';
+    div.classList.add('modal');
+    div.setAttribute('id', 'modalObservacoes');
+
+    const form = document.createElement('div');
+    form.setAttribute('id', 'formObservacoes');
+
+    const label = document.createElement('label');
+    label.innerText = 'Escreva as observações:';
+    label.htmlFor = 'observacoes';
+
+    const observacoes = await window.pywebview.api.get_observacoes_mesa(num_mesa);
+
+    const textArea = document.createElement('textarea');
+    textArea.placeholder = 'Ex: Calabresa S/Cebola';
+    textArea.value = observacoes;
+
+    const buttonFechar = document.createElement('button');
+    buttonFechar.innerText = 'Fechar';
+    buttonFechar.classList.add('botao');
+    buttonFechar.setAttribute('id', 'botaoFechar');
+    buttonFechar.addEventListener('click', fecharTelaObservacoes);
+    
+    const buttonSalvar = document.createElement('button');
+    buttonSalvar.innerText = 'Salvar';
+    buttonSalvar.classList.add('botao');
+    buttonSalvar.setAttribute('id', 'botaoSalvar');
+    buttonSalvar.addEventListener('click', async ()=>{
+        await window.pywebview.api.set_observacoes_mesa(num_mesa, textArea.value);
+        renderizarNotificacao();
+    });
+
+    form.appendChild(label);
+    form.appendChild(textArea);
+    form.appendChild(buttonFechar);
+    form.appendChild(buttonSalvar);
+
+    div.appendChild(form);
+
+    main.appendChild(div);
+}
+
+/**
+ * Abre o modal de observações.
+ * 
+ * @returns {void}
+ */
+function abrirTelaObservacoes(){
+    document.getElementById('modalObservacoes').style.display = 'grid';
+}
+
+/**
+ * Fecha o modal de observações.
+ * 
+ * @returns {void}
+ */
+function fecharTelaObservacoes(){
+    document.getElementById('modalObservacoes').style.display = 'none';
 }
 
 /**

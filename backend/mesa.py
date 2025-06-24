@@ -12,6 +12,7 @@ class Mesa:
 
         self.comanda = list()
         self.subtotal = float()
+        self.observacoes = ""
         # [{"quantidade": "quantidadeDoProduto", "produto": "nomeDoProduto", "preco": "precoDoProduto"}]
 
     def limpar_comanda(self):
@@ -65,3 +66,8 @@ class Mesa:
         '''
         self.subtotal = subtotal
 
+    def set_observacoes(self, observacao: str):
+        self.observacoes = observacao
+
+    def get_observacoes(self):
+        return self.observacoes

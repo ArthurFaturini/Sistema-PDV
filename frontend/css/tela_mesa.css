@@ -107,8 +107,10 @@ div#titulo #limpar-mesa:hover > svg{
     fill: var(--cor4);
 }
 
+/* Modal Impressão */
 div#modalImprimir #formImprimir{
-    grid-template: 50px 50px / 1fr 1fr;
+    grid-template: 50px 50px 50px / 1fr 1fr;
+    align-items: center;
 }
 
 div#modalImprimir #botaoFechamento{
@@ -118,9 +120,42 @@ div#modalImprimir #botaoCozinha{
     grid-row: 1 / 2;
     grid-column: 2 / -1;
 }
+div#modalImprimir #botaoObservacoes{
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+    min-width: -webkit-fill-available;
+}
 div#modalImprimir #botaoFechar{
     grid-column: 1 / -1;
 }
+
+/* Modal Observações */
+div#modalObservacoes #formObservacoes{
+    grid-template: 50px 150px 50px / 1fr 1fr;
+}
+div#modalObservacoes label{
+    grid-column: 1 / -1;    
+}
+div#modalObservacoes textarea{
+    grid-column: 1 / -1;
+
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    
+    resize: none;
+
+    font-size: 1.5em;
+    color: white;
+
+    background-color: transparent;
+}
+div#modalObservacoes #botaoSalvar{
+    grid-column: 2 / -1;
+}
+div#modalObservacoes #botaoFechar{
+    grid-column: 1 / 2;
+}
+
 
 div#anotacao{
     display: grid;
@@ -226,5 +261,8 @@ div#funcoes > div label{
 
 div#funcoes > div label:hover{
     background-color: var(--cor3);
+}
 
+div#funcoes #botaoImprimir{
+    grid-column: 2 / -1;
 }

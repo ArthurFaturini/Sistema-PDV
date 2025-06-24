@@ -96,6 +96,7 @@ def imprimir_cozinha(num_mesa: int):
     p = Win32Raw(f"{nome_impressora}")
 
     comanda = mesas[num_mesa - 1].get_comanda()
+    observacao = mesas[num_mesa - 1].get_observacoes()
 
     p.hw("INIT") # Reinicializa a impressora
     p.charcode("CP850") # Garante a codificação para caracteres especiais
@@ -114,7 +115,11 @@ def imprimir_cozinha(num_mesa: int):
     p.text("ITENS:\n")
     for linha in comanda:
         p.text(f'{linha["quantidade"]}x {linha["produto"]:<45}\n')        
-    p.text('\n') #Pulando Linha
+    p.text('\n')
+    p.text('------------------------------------------------\n')
+    if len(observacao) > 0:
+        p.text("OBSERVAÇÕES:\n")
+        p.text(f"{observacao}\n")
     p.text('------------------------------------------------\n')
     p.set(font='a', bold=False, align='left', double_height=False, normal_textsize=True)
     p.cut()

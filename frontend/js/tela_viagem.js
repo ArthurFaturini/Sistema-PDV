@@ -153,6 +153,7 @@ async function renderizarTelaViagem(num_mesa){
     adicionarEventListener();
     calcularTotal();
     renderizarBotaoImprimirViagem(num_mesa);
+    renderizarBotaoObservacaoViagem(num_mesa);
 };
 
 async function renderizarBotaoImprimirViagem(num_mesa){
@@ -167,6 +168,7 @@ async function renderizarBotaoImprimirViagem(num_mesa){
     
     const buttonImprimir = document.createElement('button');
     buttonImprimir.innerText = "Imprimir Pedido";
+    buttonImprimir.setAttribute('id', 'botaoImprimir');
     buttonImprimir.addEventListener('click', async () =>{
         salvarComanda(num_mesa);
         const comanda = await window.pywebview.api.get_comanda_mesa(num_mesa);
@@ -185,4 +187,21 @@ async function renderizarBotaoImprimirViagem(num_mesa){
     });
 
     divFuncoes.appendChild(buttonImprimir);
+}
+
+function renderizarBotaoObservacaoViagem(num_mesa){
+    const divFuncoes = document.getElementById('funcoes');
+
+    const buttonObservacoes = document.createElement('button');
+    buttonObservacoes.setAttribute('id', 'botaoObservacoes');
+    buttonObservacoes.classList.add('botao');
+    buttonObservacoes.innerText = "Observações";
+    buttonObservacoes.addEventListener('click', () => {
+        renderizarTelaObservacoes(num_mesa);
+        setTimeout(() => {
+            abrirTelaObservacoes();
+        }, 10);
+    });
+
+    divFuncoes.appendChild(buttonObservacoes);
 }

@@ -180,17 +180,19 @@ async function renderizarTelaConfiguracoesItens(){
 
     navBarMesa.setAttribute('id', 'nav-bar-mesa-configuracoes');
 
-    const tipos = await window.pywebview.api.get_tipos_produtos();
+    const todosProdutos = await window.pywebview.api.get_produtos();
 
-    for(let t = 0; t < tipos.length; t++){
+    let tiposProdutos = Object.keys(todosProdutos);
+
+    for(let t = 0; t < tiposProdutos.length; t++){
         const div = document.createElement('div');
         div.classList.add('tipo');
 
         const h2 = document.createElement('h2');
-        h2.innerText = `${tipos[t]}`;
+        h2.innerText = `${tiposProdutos[t]}`;
 
         h2.addEventListener('click', () => {
-            carregarAbaProdutos(tipos[t]);
+            carregarAbaProdutos(tiposProdutos[t]);
             for(let div of document.querySelectorAll('.tipo')){
                 div.firstChild.style.color = 'white';
             }
@@ -225,7 +227,7 @@ async function renderizarTelaConfiguracoesItens(){
         });
 
         icone.addEventListener('click', () => {
-            excluirTipoProduto(tipos[t]);
+            excluirTipoProduto(tiposProdutos[t]);
         });
         
         div.appendChild(icone);
@@ -275,20 +277,23 @@ async function renderizarTelaConfiguracoesItens(){
 
     configuracoesTelaProdutos.appendChild(navBarMesa);
 
-    for(let t = 0; t < tipos.length; t++){
+    for(let t = 0; t < tiposProdutos.length; t++){
         const aba = document.createElement('section');
-        aba.setAttribute('id', `aba-${tipos[t]}`);
+        aba.setAttribute('id', `aba-${tiposProdutos[t]}`);
         aba.classList.add('abas-produtos');
 
-        const quantidadeDeProduto = await window.pywebview.api.get_quantidade_produtos(tipos[t]);
-            
+        let ProdutosPorTipo = todosProdutos[tiposProdutos[t]]; //Dicionário com os produtos(nome e preço) por tipo
+        let NomeProdutos = Object.keys(ProdutosPorTipo); //Lista de Nomes de Produtos
+
+        const quantidadeDeProduto = NomeProdutos.length;
+
         for(let q = 0; q < quantidadeDeProduto; q++){
-            const nomeProduto = await window.pywebview.api.get_nome_produto(tipos[t], q);
-            const precoProduto = await window.pywebview.api.get_preco_produto(nomeProduto, tipos[t]);
+            const nomeProduto = NomeProdutos[q];
+            const precoProduto = ProdutosPorTipo[nomeProduto];
             
             const div = document.createElement('div');
             div.classList.add('produto');
-            div.setAttribute('data-tipo', tipos[t]);
+            div.setAttribute('data-tipo', tiposProdutos[t]);
             div.setAttribute('data-preco', precoProduto.toFixed(2))
 
             const icone = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -328,7 +333,7 @@ async function renderizarTelaConfiguracoesItens(){
             });
 
             div.addEventListener('click', () => {
-                excluirProduto(nomeProduto, tipos[t]);
+                excluirProduto(nomeProduto, tiposProdutos[t]);
             });
 
             aba.appendChild(div);
@@ -367,7 +372,7 @@ async function renderizarTelaConfiguracoesItens(){
             icone.style.display = 'none';
         });
 
-        div.addEventListener('click', () => {abrirTelaAdicaoProduto(tipos[t])});
+        div.addEventListener('click', () => {abrirTelaAdicaoProduto(tiposProdutos[t])});
 
         aba.appendChild(div);
 
@@ -444,8 +449,7 @@ function renderizarTelaAdicaoTipoProduto(){
     div.classList.add('modal');
     div.setAttribute('id', 'modalTipo');
 
-    const form = document.createElement('form');
-    form.setAttribute('onsubmit', 'fecharTelaAdicaoProduto()');
+    const form = document.createElement('div');
 
     let label = document.createElement('label');
     label.innerText = 'Nome:';
@@ -501,8 +505,7 @@ function renderizarTelaAdicaoProduto(){
     div.classList.add('modal');
     div.setAttribute('id', 'modalProduto');
 
-    const form = document.createElement('form');
-    form.setAttribute('onsubmit', 'fecharTelaAdicaoProduto()');
+    const form = document.createElement('div');
 
     let label = document.createElement('label');
     label.innerText = 'Nome:';

@@ -16,14 +16,16 @@ async function renderizarTelaMesa(num_mesa){
     const navBarMesa = document.createElement('section');
     navBarMesa.setAttribute('id', 'nav-bar-mesa');
 
-    //Lista de tipos
-    const tipos = await window.pywebview.api.get_tipos_produtos();
+   
+    const todosProdutos = await window.pywebview.api.get_produtos();
 
-    for(let t = 0; t < tipos.length; t++){
+    let tiposProdutos = Object.keys(todosProdutos);
+
+    for(let t = 0; t < tiposProdutos.length; t++){
         const h2 = document.createElement('h2');
-        h2.innerText = tipos[t];
+        h2.innerText = tiposProdutos[t];
         h2.addEventListener('click', () => {
-            carregarAbaProdutos(`${tipos[t]}`);
+            carregarAbaProdutos(`${tiposProdutos[t]}`);
             for(let div of document.getElementById('nav-bar-mesa').children){
                 div.style.color = 'white';
             }
@@ -155,22 +157,25 @@ async function renderizarTelaMesa(num_mesa){
     main.appendChild(telaMesa);
 
     //Loop for para a quantidade de tipos
-    for(let i = 0; i < tipos.length; i++){
-        const quantidadeDeProduto = await window.pywebview.api.get_quantidade_produtos(tipos[i]);
+    for(let i = 0; i < tiposProdutos.length; i++){
+        let ProdutosPorTipo = todosProdutos[tiposProdutos[i]]; //Dicionário com os produtos(nome e preço) por tipo
+        let NomeProdutos = Object.keys(ProdutosPorTipo); //Lista de Nomes de Produtos
+
+        const quantidadeDeProduto = NomeProdutos.length;
 
         //Criando o elemento section com id da aba específica
         const section = document.createElement('section');
-        section.setAttribute('id', `aba-${tipos[i]}`);
+        section.setAttribute('id', `aba-${tiposProdutos[i]}`);
         section.classList.add('abas-produtos');
         
         //Loop for para a quantidade de produtos de cada tipo
         for(let a = 0; a < quantidadeDeProduto; a++){
-            const nomeProduto = await window.pywebview.api.get_nome_produto(tipos[i], a);
-            const precoProduto = await window.pywebview.api.get_preco_produto(nomeProduto, tipos[i]);
-            
+            const nomeProduto = NomeProdutos[a];
+            const precoProduto = ProdutosPorTipo[nomeProduto];
+
             const div = document.createElement('div');
             div.classList.add('produto');
-            div.setAttribute('data-tipo', tipos[i]);
+            div.setAttribute('data-tipo', tiposProdutos[i]);
             div.setAttribute('data-preco', precoProduto.toFixed(2))
 
             const h2 = document.createElement('h2');
@@ -191,6 +196,7 @@ async function renderizarTelaMesa(num_mesa){
     lerComanda(num_mesa);
     calcularTotal();
     renderizarBotaoImprimir(num_mesa);
+    renderizarTelaObservacoes(num_mesa);
 };
 
 /**
@@ -263,7 +269,6 @@ function renderizarTelaOpcaoImprimir(num_mesa){
         }
 
         window.pywebview.api.imprimir_comanda(num_mesa, confirmacaoTaxa, 'Fechamento');
-        fecharTelaOpcaoImprimir();
     })
 
     const buttonCozinha = document.createElement('button');
@@ -280,10 +285,7 @@ function renderizarTelaOpcaoImprimir(num_mesa){
     buttonObservacoes.classList.add('botao');
     buttonObservacoes.innerText = "Observações";
     buttonObservacoes.addEventListener('click', () => {
-        renderizarTelaObservacoes(num_mesa);
-        setTimeout(() => {
-            abrirTelaObservacoes();
-        }, 10);
+        abrirTelaObservacoes();
     });
 
     form.appendChild(buttonFechamento);
@@ -315,10 +317,6 @@ function fecharTelaOpcaoImprimir(){
 
 async function renderizarTelaObservacoes(num_mesa){
     const main = document.getElementById('main');
-
-    if(document.getElementById('modalObservacoes')){
-        main.removeChild(document.getElementById('modalObservacoes'));
-    };
 
     const div = document.createElement('div');
     div.style.display = 'none';

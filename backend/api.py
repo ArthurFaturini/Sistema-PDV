@@ -24,62 +24,6 @@ class API:
 
         return tipos
     
-    def get_preco_produto(self, produto: str, tipo: str):
-        '''
-        Retorna o preço de um produto com base no nome e no tipo fornecido.
-
-        Args:
-            produto (string): Nome do produto
-            tipo (string): Tipo do produto
-
-        Returns:
-            float: Preço do produto.
-
-        '''
-        with open("data/produtos.json", 'r', encoding='utf-8') as arquivo:
-            dados = json.load(arquivo)
-
-        return dados[tipo][produto]
-    
-    def get_quantidade_produtos(self, tipo: str):
-        '''
-        Retorna a quantidade de produtos de um tipo específico.
-
-        Args:
-            tipo (string): Tipo de produto
-
-        Returns:
-            quantidade (int): Quantidade de produtos para um tipo específico.
-        '''
-        with open("data/produtos.json", 'r', encoding='utf-8') as arquivo:
-            dados = json.load(arquivo)
-
-        quantidade = 0
-        for produto in dados[tipo]:
-            quantidade += 1
-        
-        return quantidade
-    
-    def get_nome_produto(self, tipo: str, index:int):
-        '''
-        Retorna o nome do produto com base na posição dele.
-
-        Args:
-            tipo (string): Tipo de produto
-            index (int): Posição do produto
-
-        Returns:
-            string: Nome do produto    
-        '''
-        with open("data/produtos.json", 'r', encoding='utf-8') as arquivo:
-            dados = json.load(arquivo)
-
-        produtos = list()
-        for produto in dados[tipo]:
-            produtos.append(produto)
-
-        return produtos[index]
-    
     def get_tipo_produto(self, nome: str =str().title()):
         '''
         Retorna o tipo do produto com base em um nome de produto específico.
@@ -97,6 +41,11 @@ class API:
             if nome in dados[tipo]:
                 return tipo
 
+    def get_produtos(self):
+        with open("data/produtos.json", 'r', encoding='utf-8') as arquivo:
+            dados = json.load(arquivo)
+
+        return dados
 
     def adicionar_produto(self, nome: str, tipo: str, preco: float):
         '''
@@ -322,6 +271,9 @@ class API:
             None
         '''
         mesas[num_mesa - 1].set_subtotal(subtotal)
+
+    def get_subtotal_comanda(self, num_mesa: int):
+        return mesas[num_mesa - 1].subtotal
 
     def get_lista_impressoras(self):
         '''

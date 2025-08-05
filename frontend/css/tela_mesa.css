@@ -28,7 +28,7 @@ section#nav-bar-mesa{
 
 section#nav-bar-mesa h2{
     position: relative;
-    text-shadow: 1px 1px 5px black;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
     cursor: pointer;
 }
@@ -223,7 +223,7 @@ div#funcoes > p{
    color: var(--cor4);
    text-align: center;
 
-   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.6);
 }
 
 div#funcoes #configuracoes-taxa{
@@ -247,7 +247,6 @@ div#funcoes > div input:checked + label{
 }
 
 div#funcoes > div label{
-    text-shadow: 1px 1px 5px black;
     padding: 10px;
     background-color: var(--cor5);
 

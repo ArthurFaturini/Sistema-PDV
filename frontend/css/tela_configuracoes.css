@@ -79,7 +79,7 @@ section#nav-bar-mesa-configuracoes{
 
 section#nav-bar-mesa-configuracoes h2{
     position: relative;
-    text-shadow: 1px 1px 5px black;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 section#nav-bar-mesa-configuracoes h2::after{
     content: " ";

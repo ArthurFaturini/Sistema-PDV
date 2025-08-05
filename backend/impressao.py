@@ -63,7 +63,7 @@ def imprimir_fechamento(num_mesa: int, taxa: bool = False):
     p.text(f'Subtotal:                              R${subtotal:7.2f}\n')
 
     if taxa:
-        p.text(f'Taxa de Serviço({list(taxa_configuracoes.values())[0]}%):                R${porcentagem:7.2f}\n')
+        p.text(f'Taxa de Serviço({list(taxa_configuracoes.values())[0]}%):                  R${porcentagem:7.2f}\n')
     p.text('------------------------------------------------\n')
 
     p.set(font='a', bold=True, align='left', custom_size=True, width=2, height=2)
@@ -120,7 +120,7 @@ def imprimir_cozinha(num_mesa: int):
     if len(observacao) > 0:
         p.text("OBSERVAÇÕES:\n")
         p.text(f"{observacao}\n")
-    p.text('------------------------------------------------\n')
+        p.text('------------------------------------------------\n')
     p.set(font='a', bold=False, align='left', double_height=False, normal_textsize=True)
     p.cut()
     p.close()
